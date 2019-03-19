@@ -1,5 +1,5 @@
 const app = require('./main')
-const PORT = 8080
+const PORT = process.env.PORT || 8080
 const syncAndSeed = require('./db/syncAndSeed')
 
 syncAndSeed()
