@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import axios from 'axios'
 
-export default class Products extends Component {
+export default class Sale extends Component {
     constructor() {
         super()
         this.state = {
@@ -19,8 +19,10 @@ export default class Products extends Component {
 
     async componentDidMount() {
         const res = await axios.get('/api/products')
-        this.setState({ products: res.data })
+        const saleData = res.data.filter(data => data.discount > 0)
+        this.setState({ products: saleData })
     }
+
 
     render() {
         return (
