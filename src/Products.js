@@ -11,10 +11,9 @@ export default class Products extends Component {
 
     async removeProduct(productId) {
         await axios.delete(`/api/products/${productId}`)
-        this.setState({
-            products: this.state.products.filter(product => product.id != productId)
-        })
-        console.log(this.state)
+        const newState = this.state.products.filter((product) => product.id != productId)
+        console.log(newState)
+        setState({ products: newState })
     }
 
     async componentDidMount() {
@@ -25,14 +24,30 @@ export default class Products extends Component {
     render() {
         return (
             <div className='card'>
-                {this.state.products.map(product =>
-                    <div className='card-body' key={product.id}>
-                        <span>{product.name}</span> <br></br>
-                        <span className="badge badge-success">${product.price}</span><br></br>
-                        <span>${product.discount > 0 ? ((product.discount / 100) * product.price) : ''}</span><br></br>
-                        <span className="badge badge-success">{product.availability}</span><br></br>
-                        <button className="btn btn-danger btn-sm" onClick={() => this.removeProduct(product.id)}>Delete</button>
-                    </div>)}
+                {this.state.products.map(product => {
+                    {
+                        if (product.discount > 0) {
+                            return (
+                                <div className='card-body' key={product.id}>
+                                    <span>{product.name}</span> <br></br>
+                                    <span style={{ textDecorationLine: 'line-through' }}>${product.price}</span> <br></br>
+                                    <span className="badge badge-success" > ${product.discount > 0 ? ((product.discount / 100) * product.price) : ""}</span> <br></br>
+                                    <span className="badge badge-success">{product.availability}</span> <br></br>
+                                    <button className="btn btn-danger btn-sm" onClick={() => this.removeProduct(product.id)}>Delete</button>
+                                </div>
+                            )
+                        } else {
+                            return (
+                                <div className='card-body' key={product.id}>
+                                    <span>{product.name}</span> <br></br>
+                                    <span className="badge badge-success">${product.price}</span> <br></br>
+                                    <span className="badge badge-success">{product.availability}</span> <br></br>
+                                    <button className="btn btn-danger btn-sm" onClick={() => this.removeProduct(product.id)}>Delete</button>
+                                </div>
+                            )
+                        }
+                    }
+                })}
             </div>
         )
     }

@@ -42,7 +42,12 @@ export default class CreateProduct extends Component {
                     <label htmlFor='discount'>Discount:</label>
                     <input name='discount' className="form-control" type='text' onChange={this.onChange} />
                     <label htmlFor='availability'>Availability:</label>
-                    <input name='availability' className="form-control" type='text' onChange={this.onChange} />
+                    <select name='availability' className="form-control" onChange={this.onChange}>
+                        <option>instock</option>
+                        <option>backordered</option>
+                        <option>discontinued</option>
+                    </select>
+
                     <button type='submit'>Submit</button>
                 </div>
             </form>
