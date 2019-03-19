@@ -32,6 +32,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node server/server.js",
+    "build": "webpack",
     "webpack": "webpack",
     "webpack:dev": "npm run webpack -- --mode=development --watch",
     "start:dev": "npm run webpack:dev & DATABASE_URL=postgres://localhost/acme_product_sales nodemon server/server.js --ignore src/"
